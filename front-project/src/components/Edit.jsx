@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 
@@ -18,9 +19,8 @@ export default function Edit() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(
-        `http://localhost:3000/students`
-      );
+      console.log(id);
+      const response = await fetch(`https://intro-to-node-js-ivy7.onrender.com/students/${id}`);
 
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -29,6 +29,7 @@ export default function Edit() {
       }
 
       const record = await response.json();
+      console.log(record);
       if (!record) {
         window.alert(`Record with id ${id} not found`);
         navigate("/");
@@ -50,6 +51,8 @@ export default function Edit() {
     });
   }
 
+  console.log(form);
+
   async function onSubmit(e) {
     e.preventDefault();
     const editedPerson = {
@@ -61,8 +64,8 @@ export default function Edit() {
     };
 
     // This will send a post request to update the data in the database.
-    await fetch(` http://localhost:3000/students/${params.id}`, {
-      method: "PUT",
+    await fetch(` https://intro-to-node-js-ivy7.onrender.com/students/${params.id}`, {
+      method: "PATCH",
       body: JSON.stringify(editedPerson),
       headers: {
         "Content-Type": "application/json",
@@ -109,7 +112,7 @@ export default function Edit() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="age">Music Genre</label>
+          <label htmlFor="age">Age</label>
           <input
             type="text"
             className="form-control"

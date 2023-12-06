@@ -36,7 +36,7 @@ export default function RecordList() {
   useEffect(() => {
     setLoading(true);
     async function getRecords() {
-      const response = await fetch(`http://localhost:3000/students`);
+      const response = await fetch(`https://intro-to-node-js-ivy7.onrender.com/students`);
       console.log(response);
       setLoading(false);
       if (!response.ok) {
@@ -54,11 +54,12 @@ export default function RecordList() {
 
   // This method will delete a record
   async function deleteRecord(id) {
-    await fetch(`http://localhost:3000/students`, {
+    await fetch(`https://intro-to-node-js-ivy7.onrender.com/students/${id}`, {
       method: "DELETE",
     });
 
     const newRecords = records.filter((el) => el._id !== id);
+    console.log(newRecords);
     setRecords(newRecords);
   }
 
@@ -77,8 +78,8 @@ export default function RecordList() {
 
   // This following section will display the table with the records of individuals.
   return (
-    <div className="container">
-      <h3 className="contact-title">Contact List</h3>
+    <div className="container-fluid">
+      <h3 className="contact-title">Students</h3>
       <table className="table table-striped" style={{ marginTop: 20 }}>
         <thead>
           <tr>
